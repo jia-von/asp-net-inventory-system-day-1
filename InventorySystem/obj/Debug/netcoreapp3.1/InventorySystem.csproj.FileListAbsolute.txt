@@ -1,0 +1,7 @@
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.csprojAssemblyReference.cache
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.AssemblyInfoInputs.cache
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.AssemblyInfo.cs
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.csproj.CoreCompileInputs.cache
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.RazorAssemblyInfo.cache
+C:\Users\jvont\Desktop\TechCareer\asp-net-inventory-system-day-1-jia-von\InventorySystem\obj\Debug\netcoreapp3.1\InventorySystem.RazorAssemblyInfo.cs
