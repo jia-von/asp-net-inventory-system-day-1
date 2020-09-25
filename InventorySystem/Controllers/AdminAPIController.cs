@@ -41,5 +41,39 @@ namespace InventorySystem.Controllers
 
             return response;
         }
+
+        // Create an HttpPut “DiscontinueProduct” endpoint that allows the user to discontinue a product
+        [HttpPut("API/DiscontinueProduct")]
+        public ActionResult DiscontinueProduct_PUT(string id)
+        {
+            ActionResult response;
+            int number;
+            id = id != null ? id.Trim() : null;
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                response = StatusCode(403, "Please enter a product id.");
+            }
+            else
+            if(!int.TryParse(id, out number))
+            {
+                response = StatusCode(403, "Please enter a valid format for id.");
+            }
+            else
+            {
+                try
+                {
+                    new ProductController().DiscontinuedProduct(int.Parse(id));
+                    response = Ok(new { message = $"Successfully discontinue product with id: {id}" });
+                }
+                catch (ValidationException e)
+                {
+
+                    response = StatusCode(403, e.SubExceptions.Select(x => x.Message));
+                }
+            }
+
+            return response;
+        }
     }
 }

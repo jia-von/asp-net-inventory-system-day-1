@@ -61,11 +61,22 @@ namespace InventorySystem.Controllers
         public void DiscontinuedProduct(int id)
         {
             Product target;
+            ValidationException exception = new ValidationException();
+
             using (ProductContext context = new ProductContext())
             {
                 target = context.Products.Where(x => x.ID == id).Single();
-                target.IsDiscontinued = true;
-                context.SaveChanges();
+
+                if (target.IsDiscontinued == true)
+                {
+                    exception.SubExceptions.Add(new Exception("This product has already been discontinued."));
+                    throw exception;
+                }
+                else
+                {
+                    target.IsDiscontinued = true;
+                    context.SaveChanges();
+                }
             }
         }
 
