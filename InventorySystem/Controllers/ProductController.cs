@@ -64,9 +64,15 @@ namespace InventorySystem.Controllers
         }
 
         // Create an HttpPut “DiscontinueProduct” endpoint that allows the user to discontinue a product
-        public void DiscontinuedProduct()
+        public void DiscontinuedProduct(int id)
         {
-
+            Product target;
+            using (ProductContext context = new ProductContext())
+            {
+                target = context.Products.Where(x => x.ID == id).Single();
+                target.IsDiscontinued = true;
+                context.SaveChanges();
+            }
         }
 
         // Create an HttpPut “AddQuantityProduct” endpoint that allows the user to add to a product’s quantity
@@ -79,6 +85,33 @@ namespace InventorySystem.Controllers
                 target.Quantity = quantity;
                 context.SaveChanges();
             }
+        }
+
+        // Create an HttpPut “SubtractQuantityProduct” endpoint that allows the user to subtract from a product’s quantity
+        public void SubtractQuantityProduct(int id, int quantity)
+        {
+            Product target;
+            using (ProductContext context = new ProductContext())
+            {
+                target = context.Products.Where(x => x.ID == id).Single();
+                target.Quantity -= quantity;
+                context.SaveChanges();
+            }
+        }
+
+        // Create an HttpGet “ShowInventory” endpoint that displays the entire inventory
+        // Requires no parameters
+        // This endpoint will not return products that have been discontinued
+        // Order by “Quantity” from lowest to highest so that user will know what needs to be restocked
+        public List<Product> ShowInventory()
+        {
+            List<Product> productList = new List<Product>();
+            using(ProductContext context = new ProductContext())
+            {
+                productList = context.Products.Where(x => x.IsDiscontinued == false).ToList();
+                productList.OrderByDescending(x => x.Quantity);
+            }
+            return productList;
         }
     }
 }
