@@ -21,11 +21,11 @@ namespace InventorySystem.Controllers
 
             if(string.IsNullOrWhiteSpace(name))
             {
-                exception.SubExceptions.Add(new ArgumentNullException(nameof(name), "Name of product is not provided."));
+                exception.SubExceptions.Add(new ArgumentNullException("Name of product is not provided."));
             }else
             if(name.Length> 30)
             {
-                exception.SubExceptions.Add(new ArgumentOutOfRangeException(nameof(name), "The name of the product cannot be more than 30 characters long."));
+                exception.SubExceptions.Add(new ArgumentOutOfRangeException("The name of the product cannot be more than 30 characters long."));
             }
 
             try
