@@ -10,14 +10,6 @@ namespace InventorySystem.Models
     [Table("product")]
     public partial class Product
     {
-        /*
-
-
-Product must have a “Quantity” that is  greater than or equal to zero
-Product must have an “IsDiscontinued” boolean
-
-         */
-
         // Product must have unique product “ID”
         [Key]
         [Column("id", TypeName = "int(10)")]
@@ -36,6 +28,7 @@ Product must have an “IsDiscontinued” boolean
         // Product must have an “IsDiscontinued” boolean
         // Set to false by default
         [Column("is_discontinued", TypeName = "tinyint(0)")]
+        public bool IsDiscontinued { get; set; }
 
 
     }
