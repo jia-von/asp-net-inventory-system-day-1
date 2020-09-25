@@ -13,6 +13,6 @@ namespace InventorySystem.Controllers
     public class AdminAPIController : ControllerBase
     {
         // Create an HttpPost “AddProduct” endpoint that allows the user to add a product to the database
-
+        [HttpPost("API/Create")]
     }
 }
