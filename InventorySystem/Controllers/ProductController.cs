@@ -11,11 +11,10 @@ namespace InventorySystem.Controllers
     public class ProductController : Controller
     {
         // Create an HttpPost “AddProduct” endpoint that allows the user to add a product to the database
-        public int AddProduct(string name, string quantity, string isDiscontinued)
+        public int AddProduct(string name, string quantity)
         {
             name = name != null ? name.Trim() : null;
             quantity = quantity != null ? quantity.Trim() : "0";
-            isDiscontinued = isDiscontinued != null ? isDiscontinued.Trim().ToLower() : null;
             int createdID;
 
             ValidationException exception = new ValidationException();
@@ -37,11 +36,6 @@ namespace InventorySystem.Controllers
             catch (ValidationException)
             {
                 exception.SubExceptions.Add(new FormatException("The quantity is not a number format"));
-            }
-
-            if(string.IsNullOrWhiteSpace(isDiscontinued))
-            {
-                exception.SubExceptions.Add(new ArgumentException(nameof(isDiscontinued), "Discontinuation has to be true or false."));
             }
 
             if(exception.SubExceptions.Count>0)
@@ -76,7 +70,7 @@ namespace InventorySystem.Controllers
         }
 
         // Create an HttpPut “AddQuantityProduct” endpoint that allows the user to add to a product’s quantity
-        public void AddQuantityProduct(int quantity, int id)
+        public void AddQuantityProduct(int id, int quantity)
         {
             Product target;
             using (ProductContext context = new ProductContext())
@@ -108,8 +102,7 @@ namespace InventorySystem.Controllers
             List<Product> productList = new List<Product>();
             using(ProductContext context = new ProductContext())
             {
-                productList = context.Products.Where(x => x.IsDiscontinued == false).ToList();
-                productList.OrderByDescending(x => x.Quantity);
+                productList = context.Products.Where(x => x.IsDiscontinued == false).OrderByDescending(y =>y.Quantity).ToList();
             }
             return productList;
         }

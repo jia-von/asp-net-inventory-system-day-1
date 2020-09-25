@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InventorySystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventorySystem.Controllers
 {
     // localhost:PORT/Admin/.....
-    [Route("API/[controller]")]
+    [Route("Product")]
     [ApiController]
     public class AdminAPIController : ControllerBase
     {
-        // Create an HttpPost “AddProduct” endpoint that allows the user to add a product to the database
-        [HttpPost("API/Create")]
+        // Return everything 
+        [HttpGet("API/All")]
+
+        public ActionResult<IEnumerable<Product>> AllProduct_GET()
+        {
+            return new ProductController().ShowInventory();
+        }
     }
 }
