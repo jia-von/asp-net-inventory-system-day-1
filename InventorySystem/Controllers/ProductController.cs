@@ -84,11 +84,22 @@ namespace InventorySystem.Controllers
         public void AddQuantityProduct(int id, int quantity)
         {
             Product target;
+            ValidationException exception = new ValidationException();
+
             using (ProductContext context = new ProductContext())
             {
                 target = context.Products.Where(x => x.ID == id).Single();
-                target.Quantity = quantity;
-                context.SaveChanges();
+
+                if (target.IsDiscontinued == true)
+                {
+                    exception.SubExceptions.Add(new Exception("This product has already been discontinued. Cannot add quantity. "));
+                    throw exception;
+                }else
+                {
+                    target.Quantity += quantity;
+                    context.SaveChanges();
+                }
+
             }
         }
 
