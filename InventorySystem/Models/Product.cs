@@ -13,6 +13,7 @@ namespace InventorySystem.Models
         // Product must have unique product “ID”
         [Key]
         [Column("id", TypeName = "int(10)")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int ID { get; set; }
 
         // Product must have a product “Name”
@@ -27,7 +28,8 @@ namespace InventorySystem.Models
 
         // Product must have an “IsDiscontinued” boolean
         // Set to false by default
-        [Column("is_discontinued", TypeName = "tinyint(0)")]
+        [Column("is_discontinued", TypeName = "tinyint(1)")]
+        [Required]
         public bool IsDiscontinued { get; set; }
 
 
