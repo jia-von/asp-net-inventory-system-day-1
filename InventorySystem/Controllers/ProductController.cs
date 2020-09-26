@@ -81,7 +81,7 @@ namespace InventorySystem.Controllers
         }
 
         // Create an HttpPut “AddQuantityProduct” endpoint that allows the user to add to a product’s quantity
-        public void AddQuantityProduct(int id, int quantity)
+        public void AddQuantityProduct(int id, int amountAdded)
         {
             Product target;
             ValidationException exception = new ValidationException();
@@ -92,11 +92,12 @@ namespace InventorySystem.Controllers
 
                 if (target.IsDiscontinued == true)
                 {
+                    // User cannot add to a product that has been discontinued
                     exception.SubExceptions.Add(new Exception("This product has already been discontinued. Cannot add quantity. "));
                     throw exception;
                 }else
                 {
-                    target.Quantity += quantity;
+                    target.Quantity += amountAdded;
                     context.SaveChanges();
                 }
 
@@ -104,14 +105,33 @@ namespace InventorySystem.Controllers
         }
 
         // Create an HttpPut “SubtractQuantityProduct” endpoint that allows the user to subtract from a product’s quantity
-        public void SubtractQuantityProduct(int id, int quantity)
+        public void SubtractQuantityProduct(int id, int amountSubtracted)
         {
             Product target;
+            ValidationException exception = new ValidationException();
+
             using (ProductContext context = new ProductContext())
             {
                 target = context.Products.Where(x => x.ID == id).Single();
-                target.Quantity -= quantity;
-                context.SaveChanges();
+
+                if(target.IsDiscontinued == true)
+                {
+                    exception.SubExceptions.Add(new Exception("This product has already been discontinued. Cannot subtract quantity."));
+                    throw exception;
+                }
+                else
+                {
+                    if(target.Quantity - amountSubtracted < 0)
+                    {
+                        exception.SubExceptions.Add(new Exception($"The current quantity is {target.Quantity}. Cannot subtract more than this value."));
+                        throw exception;
+                    }
+                    else
+                    {
+                        target.Quantity -= amountSubtracted;
+                        context.SaveChanges();
+                    }
+                }
             }
         }
 

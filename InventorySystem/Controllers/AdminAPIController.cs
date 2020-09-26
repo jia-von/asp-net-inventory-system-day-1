@@ -79,13 +79,14 @@ namespace InventorySystem.Controllers
         // Create an HttpPut “AddQuantityProduct” endpoint that allows the user to add to a product’s quantity
         [HttpPut("API/AddQuantityProduct")]
 
-        public ActionResult AddQuantityProduct_PUT(string id, string quantity)
+        // Accepts the product ID as a parameter
+        public ActionResult AddQuantityProduct_PUT(string id, string AmountAdded)
         {
             ActionResult response;
 
             int number;
             id = id != null ? id.Trim() : null;
-            quantity = quantity != null ? quantity.Trim() : null;
+            AmountAdded = AmountAdded != null ? AmountAdded.Trim() : null;
 
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -95,32 +96,96 @@ namespace InventorySystem.Controllers
             if (!int.TryParse(id, out number))
             {
                 response = StatusCode(403, "Please enter a valid format for id.");
-            }else
-            if(string.IsNullOrWhiteSpace(quantity))
+            }
+            else
             {
-                response = StatusCode(403, "Please enter quantity.");
-            }else
-            if(!int.TryParse(quantity, out number))
-            {
-                response = StatusCode(403, "Please enter a valid format for quantity.");
-            }else
-            if(int.Parse(quantity) < 0)
-            {
-                response = StatusCode(403, "The quantity has to be postive value.");
-            }else
-            {
-                try
+
+                if (string.IsNullOrWhiteSpace(AmountAdded))
                 {
-                    new ProductController().AddQuantityProduct(int.Parse(id), int.Parse(quantity));
-                    response = Ok(new { message = $"Successfully added quantity of {quantity} to product id {id}" });
+                    response = StatusCode(403, "Please enter quantity.");
                 }
-                catch (ValidationException e)
+                else
+                if (!int.TryParse(AmountAdded, out number))
                 {
-                    response = StatusCode(403, e.SubExceptions.Select(x => x.Message));
+                    response = StatusCode(403, "Please enter a valid format for quantity.");
+                }
+                else
+                if (int.Parse(AmountAdded) < 0)
+                {
+                    // AmountAdded must be a positive integer
+                    response = StatusCode(403, "The quantity has to be postive value.");
+                }
+                else
+                {
+                    try
+                    {
+                        new ProductController().AddQuantityProduct(int.Parse(id), int.Parse(AmountAdded));
+                        response = Ok(new { message = $"Successfully added quantity of {AmountAdded} to product id {id}" });
+                    }
+                    catch (ValidationException e)
+                    {
+                        response = StatusCode(403, e.SubExceptions.Select(x => x.Message));
+                    }
                 }
             }
 
             return response;
         }
+
+        [HttpPut("API/SubtractQuantityProduct")]
+
+        // Create an HttpPut “SubtractQuantityProduct” endpoint that allows the user to subtract from a product’s quantity
+        public ActionResult SubtractQuantityProduct_PUT(string id, string AmountSubtracted)
+        {
+            ActionResult response;
+
+            int number;
+            id = id != null ? id.Trim() : null;
+            AmountSubtracted = AmountSubtracted != null ? AmountSubtracted.Trim() : null;
+
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                response = StatusCode(403, "Please enter a product id.");
+            }
+            else
+            if (!int.TryParse(id, out number))
+            {
+                response = StatusCode(403, "Please enter a valid format for id.");
+            }
+            else
+            {
+
+                if (string.IsNullOrWhiteSpace(AmountSubtracted))
+                {
+                    response = StatusCode(403, "Please enter quantity.");
+                }
+                else
+                if (!int.TryParse(AmountSubtracted, out number))
+                {
+                    response = StatusCode(403, "Please enter a valid format for quantity.");
+                }
+                else
+                if (int.Parse(AmountSubtracted) < 0)
+                {
+                    // AmountAdded must be a positive integer
+                    response = StatusCode(403, "The quantity has to be postive value.");
+                }
+                else
+                {
+                    try
+                    {
+                        new ProductController().SubtractQuantityProduct(int.Parse(id), int.Parse(AmountSubtracted));
+                        response = Ok(new { message = $"Successfully subtracted quantity of {AmountSubtracted} to product id {id}" });
+                    }
+                    catch (ValidationException e)
+                    {
+                        response = StatusCode(403, e.SubExceptions.Select(x => x.Message));
+                    }
+                }
+            }
+
+            return response;
+        }
+
     }
 }
