@@ -114,23 +114,16 @@ namespace InventorySystem.Controllers
             {
                 target = context.Products.Where(x => x.ID == id).Single();
 
-                if(target.IsDiscontinued == true)
+                // If user attempts to subtract more than is in stock, reject the entire transaction, respond with Http Status 403 and include a descriptive message in the Content
+                if (target.Quantity - amountSubtracted < 0)
                 {
-                    exception.SubExceptions.Add(new Exception("This product has already been discontinued. Cannot subtract quantity."));
+                    exception.SubExceptions.Add(new Exception($"The current quantity is {target.Quantity}. Cannot subtract more than this value."));
                     throw exception;
                 }
                 else
                 {
-                    if(target.Quantity - amountSubtracted < 0)
-                    {
-                        exception.SubExceptions.Add(new Exception($"The current quantity is {target.Quantity}. Cannot subtract more than this value."));
-                        throw exception;
-                    }
-                    else
-                    {
-                        target.Quantity -= amountSubtracted;
-                        context.SaveChanges();
-                    }
+                    target.Quantity -= amountSubtracted;
+                    context.SaveChanges();
                 }
             }
         }

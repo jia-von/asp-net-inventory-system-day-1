@@ -135,6 +135,7 @@ namespace InventorySystem.Controllers
         [HttpPut("API/SubtractQuantityProduct")]
 
         // Create an HttpPut “SubtractQuantityProduct” endpoint that allows the user to subtract from a product’s quantity
+        // User can subtract from a product that has been discontinued provided other rules are also followed
         public ActionResult SubtractQuantityProduct_PUT(string id, string AmountSubtracted)
         {
             ActionResult response;
