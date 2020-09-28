@@ -4,7 +4,7 @@ The goal of this assignment is meant for me to master ASP.NET Web Application an
 
 ## Summary
 
-I have used `Http` request such as `[HttpGet("API/ShowInventory")]`, `[HttpPost("API/AddProduct")], and `[HttpPut("API/DiscontinueProduct")]` to update and create item for the database. I have used `StatusCode` to validate information and the show user error messages, including customized messages. 
+I have used `Http` request such as `[HttpGet("API/ShowInventory")]`, `[HttpPost("API/AddProduct")]`, and `[HttpPut("API/DiscontinueProduct")]` to update and create item for the database. I have used `StatusCode` to validate information and the show user error messages, including customized messages. 
 
 ## Installation
 
