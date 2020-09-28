@@ -1,4 +1,4 @@
-# C# ASP.NET Core Practice - Invetory System
+# C# ASP.NET Core Practice - Inventory System
 
 The goal of this assignment is meant for me to master ASP.NET Web Application and to use ASP.NET WEb API to create a CRUD application. The goal in this assignment is to create an inventory management system which helps company keep track of goods and supplies. As goods and supplies are restocked, sold, or used, the application should update the data appropriately to reflect the changes.
 
