@@ -49,13 +49,10 @@ The result of successful database migration and update is shown below in [PHPMyA
 | ------------- | ------------- |
 | ![AddProduct](/ScreenShots/AddProduct.PNG) | ![AddQuantityProduct](/ScreenShots/AddQuantityProduct.PNG) |
 
-| DiscontinueProduct | ShowInventory | 
-| ------------- | ------------- |
-| ![DiscontinueProduct](/ScreenShots/DiscontinueProduct.PNG) | ![ShowInventory](/ScreenShots/ShowInventory.PNG) |
+| DiscontinueProduct | ShowInventory | SubtractedQuantityProduct |
+| ------------- | ------------- | ------------- |
+| ![DiscontinueProduct](/ScreenShots/DiscontinueProduct.PNG) | ![ShowInventory](/ScreenShots/ShowInventory.PNG) | ![SubtractedQuantityProduct](/ScreenShots/SubtractedQuantityProduct.PNG) |
 
-| SubtractedQuantityProduct |
-| ------------- |
-| ![SubtractedQuantityProduct](/ScreenShots/SubtractedQuantityProduct.PNG) |
 
 
 
